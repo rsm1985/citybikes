@@ -1,23 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getNetworks } from './thunks'
+import { getNetworks, getNetworkStations } from './thunks'
 // import type { PayloadAction } from '@reduxjs/toolkit'
 
-export interface NetworkReducer {
+export interface BikesReducer {
+  networks: []
+  stations: []
   loading: {
     networks: boolean
-    network: boolean
+    stations: boolean
   }
 }
 
-const initialState: NetworkReducer = {
+const initialState: BikesReducer = {
+  networks: [],
+  stations: [],
   loading: {
     networks: false,
-    network: false,
+    stations: false,
   },
 }
 
-export const networkSlice = createSlice({
-  name: 'network',
+export const bikesSlice = createSlice({
+  name: 'bikes',
   initialState,
   reducers: {
     // increment: (state) => {
@@ -36,13 +40,31 @@ export const networkSlice = createSlice({
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(getNetworks.pending, (state, action) => {
+    builder.addCase(getNetworks.pending, (state) => {
       // Add user to the state array
-      // state.entities.push(action.payload)
+      state.loading.networks = true
     })
     builder.addCase(getNetworks.fulfilled, (state, action) => {
       // Add user to the state array
       // state.entities.push(action.payload)
+      state.networks = action.payload
+      state.loading.networks = false
+    })
+    builder.addCase(getNetworks.rejected, (state) => {
+      state.loading.networks = false
+    })
+    builder.addCase(getNetworkStations.pending, (state) => {
+      // Add user to the state array
+      state.loading.stations = true
+    })
+    builder.addCase(getNetworkStations.fulfilled, (state, action) => {
+      // Add user to the state array
+      // state.entities.push(action.payload)
+      state.stations = action.payload
+      state.loading.stations = false
+    })
+    builder.addCase(getNetworkStations.rejected, (state) => {
+      state.loading.stations = false
     })
   },
 })
@@ -50,4 +72,4 @@ export const networkSlice = createSlice({
 // Action creators are generated for each case reducer function
 // export const {} = networkSlice.actions
 
-export default networkSlice.reducer
+export default bikesSlice.reducer

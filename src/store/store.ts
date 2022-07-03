@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import networkSlice from './networks/reducer'
+import bikesSlice from './bikes/reducer'
 
 export const store = configureStore({
   reducer: {
-    network: networkSlice,
+    bikes: bikesSlice,
   },
 })
 
