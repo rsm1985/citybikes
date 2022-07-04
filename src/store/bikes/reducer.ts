@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getNetworks, getNetworkStations } from './thunks'
 import { NetworkItem, StationItem } from '../../types/types'
-// import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface BikesReducer {
   networks: NetworkItem[]
   stations: StationItem[]
+  selectedNetworkId: string | null
   loading: {
     networks: boolean
     stations: boolean
@@ -15,6 +15,7 @@ export interface BikesReducer {
 const initialState: BikesReducer = {
   networks: [],
   stations: [],
+  selectedNetworkId: null,
   loading: {
     networks: false,
     stations: false,
@@ -25,6 +26,9 @@ export const bikesSlice = createSlice({
   name: 'bikes',
   initialState,
   reducers: {
+    setActiveNetwork: (state, action) => {
+      state.selectedNetworkId = action.payload
+    },
     // increment: (state) => {
     //   // Redux Toolkit allows us to write "mutating" logic in reducers. It
     //   // doesn't actually mutate the state because it uses the Immer library,
@@ -40,10 +44,7 @@ export const bikesSlice = createSlice({
     // },
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getNetworks.pending, (state) => {
-      console.log('getNetworks.pending')
-      // Add user to the state array
       state.loading.networks = true
     })
     builder.addCase(getNetworks.fulfilled, (state, action) => {
@@ -55,8 +56,7 @@ export const bikesSlice = createSlice({
     builder.addCase(getNetworks.rejected, (state) => {
       state.loading.networks = false
     })
-    builder.addCase(getNetworkStations.pending, (state) => {
-      // Add user to the state array
+    builder.addCase(getNetworkStations.pending, (state, action) => {
       state.loading.stations = true
     })
     builder.addCase(getNetworkStations.fulfilled, (state, action) => {
@@ -72,6 +72,6 @@ export const bikesSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-// export const {} = networkSlice.actions
+export const { setActiveNetwork } = bikesSlice.actions
 
 export default bikesSlice.reducer
