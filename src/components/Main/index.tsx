@@ -4,6 +4,7 @@ import {
   networksLoadingSelector,
   networksSelector,
   stationsLoadingSelector,
+  stationsSelector,
 } from '../../store/bikes/selectors'
 import { StyledLoader, StyledMainContainer, StyledTableContainer } from './styles'
 import TableItem from '../TableItem'
@@ -12,12 +13,13 @@ import Loader from '../icons/Loader'
 const Main = () => {
   const dispatch = useAppDispatch()
   const networks = useAppSelector(networksSelector)
+  const stations = useAppSelector(stationsSelector)
   const isNetworksLoading = useAppSelector(networksLoadingSelector)
-  // const isStationsLoading = useAppSelector(stationsLoadingSelector)
-  console.log('isNetworksLoading', isNetworksLoading)
+  const isStationsLoading = useAppSelector(stationsLoadingSelector)
   const onSelectNetwork = (id: string) => {
     dispatch(getNetworkStations(id))
   }
+  const onLikeNetwork = (id: string) => {}
   useEffect(() => {
     dispatch(getNetworks())
   }, [])
@@ -39,7 +41,22 @@ const Main = () => {
           ))
         )}
       </StyledTableContainer>
-      <StyledTableContainer>2</StyledTableContainer>
+      <StyledTableContainer>
+        {isStationsLoading ? (
+          <StyledLoader>
+            <Loader width={100} height={100} />
+          </StyledLoader>
+        ) : (
+          stations.map(({ id, name, free_bikes, empty_slots }) => (
+            <TableItem
+              key={id}
+              content={`${name} - Free bikes: ${free_bikes}/${empty_slots}`}
+              id={id}
+              onClick={onLikeNetwork}
+            />
+          ))
+        )}
+      </StyledTableContainer>
     </StyledMainContainer>
   )
 }
