@@ -6,6 +6,7 @@ export interface BikesReducer {
   networks: NetworkItem[]
   stations: StationItem[]
   selectedNetworkId: string | null
+  likedStations: string[]
   loading: {
     networks: boolean
     stations: boolean
@@ -16,6 +17,7 @@ const initialState: BikesReducer = {
   networks: [],
   stations: [],
   selectedNetworkId: null,
+  likedStations: [],
   loading: {
     networks: false,
     stations: false,
@@ -29,39 +31,26 @@ export const bikesSlice = createSlice({
     setActiveNetwork: (state, action) => {
       state.selectedNetworkId = action.payload
     },
-    // increment: (state) => {
-    //   // Redux Toolkit allows us to write "mutating" logic in reducers. It
-    //   // doesn't actually mutate the state because it uses the Immer library,
-    //   // which detects changes to a "draft state" and produces a brand new
-    //   // immutable state based off those changes
-    //   // state.value += 1
-    // },
-    // decrement: (state) => {
-    //   // state.value -= 1
-    // },
-    // incrementByAmount: (state, action: PayloadAction<number>) => {
-    //   // state.value += action.payload
-    // },
+    likeStation: (state, action) => {
+      state.stations[action.payload].liked = !state.stations[action.payload].liked
+      // state.likedStations.push(action.payload)
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getNetworks.pending, (state) => {
       state.loading.networks = true
     })
     builder.addCase(getNetworks.fulfilled, (state, action) => {
-      // Add user to the state array
-      // state.entities.push(action.payload)
       state.networks = action.payload
       state.loading.networks = false
     })
     builder.addCase(getNetworks.rejected, (state) => {
       state.loading.networks = false
     })
-    builder.addCase(getNetworkStations.pending, (state, action) => {
+    builder.addCase(getNetworkStations.pending, (state) => {
       state.loading.stations = true
     })
     builder.addCase(getNetworkStations.fulfilled, (state, action) => {
-      // Add user to the state array
-      // state.entities.push(action.payload)
       state.stations = action.payload
       state.loading.stations = false
     })
@@ -71,7 +60,6 @@ export const bikesSlice = createSlice({
   },
 })
 
-// Action creators are generated for each case reducer function
-export const { setActiveNetwork } = bikesSlice.actions
+export const { setActiveNetwork, likeStation } = bikesSlice.actions
 
 export default bikesSlice.reducer

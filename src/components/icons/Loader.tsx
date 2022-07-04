@@ -2,7 +2,7 @@ import * as React from 'react'
 import { memo } from 'react'
 import { theme } from '../../assets/styles/theme'
 
-const Loader = (props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
+const LoaderIcon = (props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' xmlSpace='preserve' {...props}>
     <path
       fill={theme.colors.grey200}
@@ -49,4 +49,4 @@ const Loader = (props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) 
   </svg>
 )
 
-export default memo(Loader)
+export default memo(LoaderIcon)

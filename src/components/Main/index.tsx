@@ -11,6 +11,8 @@ import { StyledLoader, StyledMainContainer, StyledTableContainer } from './style
 import TableItem from '../TableItem'
 import { useAppDispatch, useAppSelector } from '../../store/store'
 import Loader from '../icons/Loader'
+import { likeStation } from '../../store/bikes/reducer'
+
 const Main = () => {
   const dispatch = useAppDispatch()
   const networks = useAppSelector(networksSelector)
@@ -18,11 +20,11 @@ const Main = () => {
   const selectedNetworkId = useAppSelector(selectedNetworkIdSelector)
   const isNetworksLoading = useAppSelector(networksLoadingSelector)
   const isStationsLoading = useAppSelector(stationsLoadingSelector)
-  const onSelectNetwork = (id: string) => {
-    dispatch(getNetworkStations(id))
+  const onSelectNetwork = (id: string | number) => {
+    dispatch(getNetworkStations(String(id)))
   }
-  const onLikeStation = (id: string) => {
-    console.log('!!!')
+  const onLikeStation = (index: string | number) => {
+    dispatch(likeStation(String(index)))
   }
   useEffect(() => {
     dispatch(getNetworks())
@@ -52,12 +54,14 @@ const Main = () => {
             <Loader width={100} height={100} />
           </StyledLoader>
         ) : (
-          stations.map(({ id, name, free_bikes, empty_slots }) => (
+          stations.map(({ id, name, free_bikes, empty_slots, liked }, index) => (
             <TableItem
+              liked={liked}
               key={id}
               content={`${name} - Free bikes: ${free_bikes}/${free_bikes + empty_slots}`}
-              id={id}
+              id={index}
               onClick={onLikeStation}
+              isShowLikeIcon
             />
           ))
         )}

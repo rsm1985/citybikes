@@ -12,4 +12,5 @@ export interface StationItem {
   name: string
   free_bikes: number
   empty_slots: number
+  liked?: boolean
 }
