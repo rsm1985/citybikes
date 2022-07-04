@@ -7,16 +7,13 @@ import { StyledMainContainer } from './styles'
 const Main = () => {
   const dispatch = useDispatch<AppDispatch>()
   const networks = useSelector(networkSelector)
+  const onSelectNetwork = (id: string) => {
+    dispatch(getNetworkStations(id))
+  }
   useEffect(() => {
     dispatch(getNetworks())
-    dispatch(getNetworkStations('velib'))
   }, [])
-  return (
-    <StyledMainContainer>
-      <h1>Hello!</h1>
-      <div>1234</div>
-    </StyledMainContainer>
-  )
+  return <StyledMainContainer></StyledMainContainer>
 }
 
 export default memo(Main)
