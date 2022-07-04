@@ -1,11 +1,16 @@
 import React, { memo, FC } from 'react'
+import { StyledItemContainer, StyledItemText } from './styles'
 
 interface TableItemProps {
-  a?: string
+  content: string
 }
 
-const TableItem: FC<TableItemProps> = () => {
-  return <></>
+const TableItem: FC<TableItemProps> = ({ content }) => {
+  return (
+    <StyledItemContainer>
+      <StyledItemText>{content}</StyledItemText>
+    </StyledItemContainer>
+  )
 }
 
 export default memo(TableItem)

@@ -41,6 +41,7 @@ export const bikesSlice = createSlice({
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getNetworks.pending, (state) => {
+      console.log('getNetworks.pending')
       // Add user to the state array
       state.loading.networks = true
     })
