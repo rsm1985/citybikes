@@ -5,7 +5,7 @@ import Main from './components/Main'
 import { Reset } from 'styled-reset'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './assets/styles/theme'
-import { GlobalStyle } from './assets/styles/global-styled'
+import { GlobalStyle } from './assets/styles/global-styles'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(document.getElementById('root')!)

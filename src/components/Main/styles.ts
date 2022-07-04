@@ -9,6 +9,7 @@ export const StyledMainContainer = styled.div`
   height: 90vh;
   width: 100%;
   max-width: 1000px;
+  overflow-y: scroll;
   border: 1px solid red;
 `
 export const StyledTableContainer = styled.div`

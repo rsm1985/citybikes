@@ -1,5 +1,6 @@
 import { BikesReducer } from './reducer'
+import { RootState } from '../store'
 
-export const networksSelector = (state: BikesReducer) => state.networks
-export const networksLoadingSelector = (state: BikesReducer) => state.loading?.networks
-export const stationsLoadingSelector = (state: BikesReducer) => state.loading?.stations
+export const networksSelector = (state: RootState) => state.bikes.networks
+export const networksLoadingSelector = (state: RootState) => state.bikes.loading?.networks
+export const stationsLoadingSelector = (state: RootState) => state.bikes.loading?.stations

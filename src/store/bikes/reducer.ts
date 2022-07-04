@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getNetworks, getNetworkStations } from './thunks'
+import { NetworkItem } from '../../types/types'
 // import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface BikesReducer {
-  networks: []
+  networks: NetworkItem[]
   stations: []
   loading: {
     networks: boolean

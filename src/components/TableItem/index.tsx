@@ -1,5 +1,5 @@
 import React, { memo, FC } from 'react'
-import { StyledItemContainer, StyledItemText } from './styles'
+import { StyledFavoriteIcon, StyledItemContainer } from './styles'
 
 interface TableItemProps {
   content: string
@@ -8,7 +8,8 @@ interface TableItemProps {
 const TableItem: FC<TableItemProps> = ({ content }) => {
   return (
     <StyledItemContainer>
-      <StyledItemText>{content}</StyledItemText>
+      <div>{content}</div>
+      <StyledFavoriteIcon></StyledFavoriteIcon>
     </StyledItemContainer>
   )
 }

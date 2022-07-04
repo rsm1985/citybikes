@@ -1,18 +1,19 @@
 import React, { memo, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { getNetworks, getNetworkStations } from '../../store/bikes/thunks'
-import { AppDispatch } from '../../store/store'
 import {
   networksLoadingSelector,
   networksSelector,
   stationsLoadingSelector,
 } from '../../store/bikes/selectors'
 import { StyledMainContainer, StyledTableContainer } from './styles'
+import TableItem from '../TableItem'
+import { useAppDispatch, useAppSelector } from '../../store/store'
 const Main = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  const networks = useSelector(networksSelector)
-  const isNetworksLoading = useSelector(networksLoadingSelector)
-  const isStationsLoading = useSelector(stationsLoadingSelector)
+  const dispatch = useAppDispatch()
+  const networks = useAppSelector(networksSelector)
+  console.log('networks', networks)
+  const isStationsLoading = useAppSelector(stationsLoadingSelector)
   const onSelectNetwork = (id: string) => {
     dispatch(getNetworkStations(id))
   }
@@ -21,7 +22,11 @@ const Main = () => {
   }, [])
   return (
     <StyledMainContainer>
-      <StyledTableContainer>1</StyledTableContainer>
+      <StyledTableContainer>
+        {networks.map(({ name, location: { city, country }, id }) => (
+          <TableItem key={id} content={`${name} ${city} ${country}`} />
+        ))}
+      </StyledTableContainer>
       <StyledTableContainer>2</StyledTableContainer>
     </StyledMainContainer>
   )
