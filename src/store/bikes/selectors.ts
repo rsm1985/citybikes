@@ -1,3 +1,3 @@
 import { BikesReducer } from './reducer'
 
-export const networkSelector = (state: BikesReducer) => state
+export const networkSelector = (state: BikesReducer) => state.networks
