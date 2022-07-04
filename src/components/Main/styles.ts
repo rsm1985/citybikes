@@ -15,3 +15,9 @@ export const StyledMainContainer = styled.div`
 export const StyledTableContainer = styled.div`
   border: 1px solid ${theme.colors.black};
 `
+export const StyledLoader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`
