@@ -19,4 +19,5 @@ export const StyledFavoriteIcon = styled.div`
   margin-left: 20px;
   width: 30px;
   height: 30px;
+  flex-shrink: 0;
 `
